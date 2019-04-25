@@ -50,11 +50,11 @@ class Blog extends Component {
 
 
     clickPreviousPages = () => {
-        this.currentPage = this.currentPage-4;
-        this.previousPage = this.previousPage- 4;
-        this.nextPage = this.nextPage - 4;
+        this.currentPage = this.currentPage-5;
+        this.previousPage = this.currentPage-5 ;
+        this.nextPage = this.nextPage + 5;
 
-        let updatedPosts = this.state.allPosts.slice(this.previousPage, this.currentPage);
+        let updatedPosts = this.state.allPosts.slice(this.currentPage, this.currentPage+4);
 
         this.setState({posts: updatedPosts});
         console.log('currentPage: ' + this.currentPage);
@@ -63,11 +63,12 @@ class Blog extends Component {
     }
 
     clickNextPages = () => {
-        this.currentPage = this.currentPage+4;
-        this.previousPage = this.previousPage+ 4;
-        this.nextPage = this.nextPage + 4;
+        this.currentPage = this.currentPage+5;
+        this.previousPage = this.currentPage-5 ;
+        this.nextPage = this.nextPage + 5;
 
-        let updatedPosts = this.state.allPosts.slice(this.currentPage, this.nextPage);
+        let updatedPosts = this.state.allPosts.slice(this.currentPage, this.currentPage + 4);
+
         this.setState({posts: updatedPosts});
         console.log('currentPage: ' + this.currentPage);
         console.log('previousPage: ' + this.previousPage);
