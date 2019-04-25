@@ -49,30 +49,28 @@ class Blog extends Component {
     }
 
 
+    // why we still can get data when the index is negative?
+
     clickPreviousPages = () => {
-        this.currentPage = this.currentPage-5;
-        this.previousPage = this.currentPage-5 ;
-        this.nextPage = this.nextPage + 5;
+        this.currentPage = this.currentPage-4;
+
 
         let updatedPosts = this.state.allPosts.slice(this.currentPage, this.currentPage+4);
 
         this.setState({posts: updatedPosts});
         console.log('currentPage: ' + this.currentPage);
-        console.log('previousPage: ' + this.previousPage);
-        console.log('nextPage: ' + this.nextPage);
+
     }
 
     clickNextPages = () => {
-        this.currentPage = this.currentPage+5;
-        this.previousPage = this.currentPage-5 ;
-        this.nextPage = this.nextPage + 5;
+        this.currentPage = this.currentPage+4;
+
 
         let updatedPosts = this.state.allPosts.slice(this.currentPage, this.currentPage + 4);
 
         this.setState({posts: updatedPosts});
         console.log('currentPage: ' + this.currentPage);
-        console.log('previousPage: ' + this.previousPage);
-        console.log('nextPage: ' + this.nextPage);
+
 
     }
 
