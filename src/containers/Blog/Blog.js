@@ -9,14 +9,17 @@ import axios from 'axios';
 class Blog extends Component {
     state ={
         posts: [], // define posts as an array
-        SelectedPostId: null
+        SelectedPostId: null,
+        currentPages: 0,
+        nextPages: 0,
+        totalPages: 0
     }
 
     componentDidMount(){
         axios.get('https://jsonplaceholder.typicode.com/posts').then(response=>
             {
 
-                const posts = response.data.slice(0, 10);
+                const posts = response.data.slice(this.state.currentPages, this.state.nextPages);
                 const updatedPosts =posts.map(post =>{
                     return {
                         ...post,
@@ -28,10 +31,29 @@ class Blog extends Component {
         )
         ;
 
+
+
+
     }
 
     postSelectedHandler = (id) =>{
             this.setState({selectedPostId:id});
+}
+
+
+    clickPreviousPages=()=>{
+        const newCurrentPages ={...this.state.currentPages};
+        newCurrentPages>4 ?
+        this.setState({currentPages: newCurrentPages-4}):
+            this.setState({currentPages: 0});
+    }
+
+    clickNextPages=()=>{
+        const newNextPages ={...this.state.nextPages};
+        (newNextPages + 4)> this.state.posts.length ?
+            this.setState({currentPages: this.state.posts.length}):
+            this.setState({currentPages: newNextPages + 4});
+
     }
 
     render () {
@@ -49,6 +71,8 @@ class Blog extends Component {
                 <section className="Posts">
                     {posts}
                 </section>
+                <button onClick={this.clickPreviousPages}>Previous</button>
+                <button onClick={this.clickNextPages}>Next</button>
                 <section>
                     <FullPost id={this.state.selectedPostId} />
                 </section>
