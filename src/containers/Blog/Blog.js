@@ -11,15 +11,24 @@ class Blog extends Component {
         posts: [], // define posts as an array
         SelectedPostId: null,
         currentPages: 0,
-        nextPages: 0,
-        totalPages: 0
+        nextPages: 4,
+        totalPages: 0,
+        newPosts:[],
+        newNextPages :0,
+        newCurrentPages :0,
+        stateNumber: 0
     }
 
+
+
     componentDidMount(){
+
         axios.get('https://jsonplaceholder.typicode.com/posts').then(response=>
             {
 
-                const posts = response.data.slice(this.state.currentPages, this.state.nextPages);
+                this.setState({newPosts: response.data});
+                console.log(this.state.newPosts.length)
+                const posts = response.data.slice(0, 4);
                 const updatedPosts =posts.map(post =>{
                     return {
                         ...post,
@@ -42,17 +51,10 @@ class Blog extends Component {
 
 
     clickPreviousPages=()=>{
-        const newCurrentPages ={...this.state.currentPages};
-        newCurrentPages>4 ?
-        this.setState({currentPages: newCurrentPages-4}):
-            this.setState({currentPages: 0});
+
     }
 
     clickNextPages=()=>{
-        const newNextPages ={...this.state.nextPages};
-        (newNextPages + 4)> this.state.posts.length ?
-            this.setState({currentPages: this.state.posts.length}):
-            this.setState({currentPages: newNextPages + 4});
 
     }
 
