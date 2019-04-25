@@ -13,12 +13,11 @@ class Blog extends Component {
         currentPages: 0,
         nextPages: 4,
         totalPages: 0,
-        newPosts:[],
-        newNextPages :0,
-        newCurrentPages :0,
+        allPosts:[],
+
         stateNumber: 0
     }
-
+    currentPage = 0 ;
 
 
     componentDidMount(){
@@ -26,8 +25,8 @@ class Blog extends Component {
         axios.get('https://jsonplaceholder.typicode.com/posts').then(response=>
             {
 
-                this.setState({newPosts: response.data});
-                console.log(this.state.newPosts.length)
+                this.setState({allPosts: response.data});
+                console.log(this.state.allPosts.length)
                 const posts = response.data.slice(0, 4);
                 const updatedPosts =posts.map(post =>{
                     return {
@@ -52,9 +51,19 @@ class Blog extends Component {
 
     clickPreviousPages=()=>{
 
+
+
+
+       let updatedPosts = this.state.allPosts.slice(this.currentPage, this.currentPage-4);
+       this.currentPage = this.currentPage -4;
+        this.setState({posts: updatedPosts});
+
     }
 
     clickNextPages=()=>{
+       let updatedPosts = this.state.allPosts.slice(this.currentPage, this.currentPage+4);
+        this.currentPage = this.currentPage +4;
+        this.setState({posts: updatedPosts});
 
     }
 
